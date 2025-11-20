@@ -7,21 +7,23 @@ export default function About() {
       <div className='space-y-4 text-gray-700 leading-relaxed'>
         <p>
           Seasoned Senior Front-End Engineer with over 15 years of experience
-          building high-performance, scalable web applications with a focus on
-          user-centric design and seamless user flows. Proven track record of
-          driving measurable improvements in UI responsiveness, accessibility,
-          and cross-platform consistency.
+          architecting high-performance, scalable web applications and micro
+          frontend systems. Proven track record of designing robust UI
+          architectures, implementing enterprise-scale design systems, and
+          driving measurable improvements in performance, accessibility, and
+          user experience.
         </p>
         <p>
-          Expert in React, TypeScript, and modern architecture patterns, with
-          deep experience in leading critical UI refactors, implementing design
-          systems, and optimizing complex web interfaces for speed and
-          usability.
+          Expert in React, TypeScript, and modern system design patterns, with
+          deep experience in micro frontend architecture, component library
+          development, performance engineering, and implementing comprehensive
+          monitoring and logging solutions for large-scale applications.
         </p>
         <p>
-          Passionate about translating design vision into intuitive interactions
-          and collaborating across engineering, design, and product to deliver
-          elegant, impactful digital experiences.
+          Passionate about building scalable frontend infrastructure,
+          translating complex system requirements into elegant user experiences,
+          and leading cross-functional teams to deliver high-quality web
+          applications.
         </p>
       </div>
     </section>

@@ -3,7 +3,7 @@ export default function Header() {
     <header className='text-center mb-16'>
       <h1 className='text-5xl font-bold text-gray-900 mb-4'>Yonatan Ayalon</h1>
       <p className='text-xl text-gray-600 mb-8'>
-        Senior Software Engineer & Full Stack Developer
+        Senior Front-End Software Engineer
       </p>
       <div className='flex justify-center space-x-6 mb-6'>
         <a
