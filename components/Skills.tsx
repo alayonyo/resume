@@ -10,6 +10,14 @@ export default function Skills() {
       'Application Monitoring',
       'Frontend Infrastructure',
     ],
+    'User Experience & Optimization': [
+      'A/B Testing',
+      'Conversion Optimization',
+      'User Engagement',
+      'Analytics Implementation',
+      'User Journey Optimization',
+      'Performance Metrics',
+    ],
     Frontend: [
       'JavaScript',
       'TypeScript',

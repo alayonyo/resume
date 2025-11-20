@@ -9,6 +9,7 @@ export default function Experience() {
         'Architected and maintained React (TS) + Redux infrastructure for the core application serving millions of users.',
         'Designed and implemented micro frontend architecture enabling independent team deployments and scalability.',
         'Built comprehensive performance monitoring and logging systems, improving application load times by 40%.',
+        'Led A/B testing initiatives and conversion optimization strategies, driving measurable improvements in user engagement and retention.',
         'Constructed robust E2E testing infrastructure using Selenium & WebDriverIO, integrated with BrowserStack.',
         'Led design system implementation across multiple product teams, ensuring UI consistency and developer efficiency.',
         'Collaborated cross-functionally with product, design, and backend teams to ensure performance and accessibility.',
@@ -54,8 +55,8 @@ export default function Experience() {
       description: '',
       achievements: [
         'Provided technical leadership for the SearchApps team, developing multiple high-scale web applications.',
-        'Created web UIs and extensions for millions of daily users, optimizing conversion through A/B testing.',
-        'Developed responsive layouts, browser extensions, and image portal experiences.',
+        'Created web UIs and extensions for millions of daily users, implementing A/B testing frameworks that significantly improved conversion rates and user engagement.',
+        'Developed responsive layouts, browser extensions, and image portal experiences focused on user experience optimization.',
         'Delivered internal front-end training courses on MVC4, JavaScript best practices, and scalable design patterns.',
         'Full-stack experience: .NET MVC4/5, WebAPI, MySQL/MSSQL, CDN optimization, Amazon EC2 deployment.',
       ],

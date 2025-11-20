@@ -16,8 +16,9 @@ export default function About() {
         <p>
           Expert in React, TypeScript, and modern system design patterns, with
           deep experience in micro frontend architecture, component library
-          development, performance engineering, and implementing comprehensive
-          monitoring and logging solutions for large-scale applications.
+          development, performance engineering, A/B testing, and conversion
+          optimization. Proven track record of implementing data-driven
+          solutions that improve user engagement and drive business growth.
         </p>
         <p>
           Passionate about building scalable frontend infrastructure,
