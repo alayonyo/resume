@@ -1,6 +1,6 @@
 export default function Contact() {
   return (
-    <section className='bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 transition-colors'>
+    <section className='hoverable-section bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-700 dark:to-gray-600 rounded-lg shadow-lg hover:shadow-2xl p-8 border-l-4 border-blue-500 hover:border-l-6'>
       <h2 className='text-3xl font-bold text-gray-900 dark:text-white mb-6'>
         Get In Touch
       </h2>
@@ -8,13 +8,16 @@ export default function Contact() {
         I&apos;m always interested in new opportunities and collaborations.
       </p>
       <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-        <button className='bg-blue-600 dark:bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors'>
+        <a
+          href='mailto:yonatanayalon1@gmail.com'
+          className='bg-blue-600 dark:bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors inline-block text-center'
+        >
           Contact Me
-        </button>
+        </a>
         <a
           href='/yonatan-ayalon-resume-2025-10.pdf'
           download='Yonatan_Ayalon_Resume.pdf'
-          className='inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 font-medium rounded-lg hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white transition-colors'
+          className='inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 dark:border-white text-blue-600 dark:text-white font-medium rounded-lg hover:bg-blue-600 dark:hover:bg-white hover:text-white dark:hover:text-gray-900 transition-colors'
         >
           <svg
             className='w-5 h-5 mr-2'

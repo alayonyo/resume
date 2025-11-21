@@ -26,7 +26,7 @@ export default function Header() {
     <header className='text-center mb-16 relative'>
       <button
         onClick={toggleTheme}
-        className='absolute top-0 right-0 p-3 rounded-lg bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700'
+        className='absolute top-0 right-0 p-3 rounded-lg bg-white dark:bg-gray-800 shadow-lg hover:shadow-xl hover:bg-gray-50 dark:hover:bg-gray-700 hover:scale-105 transition-all duration-200 border border-gray-200 dark:border-gray-700'
         aria-label='Toggle dark mode'
       >
         {isDark ? (
@@ -78,6 +78,13 @@ export default function Header() {
           target='_blank'
         >
           GitHub
+        </a>
+        <a
+          href='https://stackoverflow.com/users/2633390/yonatan-ayalon'
+          className='text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300'
+          target='_blank'
+        >
+          Stack Overflow
         </a>
       </div>
       <div className='flex justify-center'>

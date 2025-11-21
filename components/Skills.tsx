@@ -52,7 +52,7 @@ export default function Skills() {
   };
 
   return (
-    <section className='bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-8 transition-colors'>
+    <section className='hoverable-section bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-2xl p-8 mb-8'>
       <h2 className='text-3xl font-bold text-gray-900 dark:text-white mb-6'>
         Professional Skills
       </h2>
@@ -66,7 +66,7 @@ export default function Skills() {
               {skills.map((skill) => (
                 <span
                   key={skill}
-                  className='bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm font-medium'
+                  className='bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-100 px-3 py-1 rounded-full text-sm font-medium border border-blue-200 dark:border-blue-600'
                 >
                   {skill}
                 </span>

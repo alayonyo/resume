@@ -97,7 +97,7 @@ export default function Experience() {
   ];
 
   return (
-    <section className='bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-8 transition-colors'>
+    <section className='hoverable-section bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-2xl p-8 mb-8'>
       <h2 className='text-3xl font-bold text-gray-900 dark:text-white mb-6'>
         Professional Experience
       </h2>
@@ -120,7 +120,7 @@ export default function Experience() {
               {exp.achievements.map((achievement, i) => (
                 <li
                   key={i}
-                  className='text-gray-600 dark:text-gray-400 text-sm flex items-start'
+                  className='text-gray-600 dark:text-gray-400 flex items-start'
                 >
                   <span className='text-blue-500 dark:text-blue-400 mr-2'>
                     •
