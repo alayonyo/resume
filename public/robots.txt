@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://yonatanayalon.com/sitemap.xml
+
+# Disallow specific files
+Disallow: /_next/
+Disallow: /api/

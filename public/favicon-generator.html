@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Favicon Generator</title>
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      width="32"
+      height="32"
+    ></canvas>
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Blue background with rounded corners
+      ctx.fillStyle = '#2563eb';
+      ctx.fillRect(0, 0, 32, 32);
+
+      // White text
+      ctx.fillStyle = 'white';
+      ctx.font = 'bold 14px Arial';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('YA', 16, 16);
+
+      // Convert to ICO format (simplified - just export as PNG for now)
+      canvas.toBlob(function(blob) {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'favicon.png';
+          a.click();
+          URL.revokeObjectURL(url);
+      });
+    </script>
+  </body>
+</html>
