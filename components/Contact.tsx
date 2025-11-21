@@ -1,18 +1,20 @@
 export default function Contact() {
   return (
-    <section className='bg-white rounded-lg shadow-lg p-8'>
-      <h2 className='text-3xl font-bold text-gray-900 mb-6'>Get In Touch</h2>
-      <p className='text-gray-700 mb-4'>
+    <section className='bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 transition-colors'>
+      <h2 className='text-3xl font-bold text-gray-900 dark:text-white mb-6'>
+        Get In Touch
+      </h2>
+      <p className='text-gray-700 dark:text-gray-300 mb-4'>
         I&apos;m always interested in new opportunities and collaborations.
       </p>
       <div className='flex flex-col sm:flex-row gap-4 justify-center'>
-        <button className='bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors'>
+        <button className='bg-blue-600 dark:bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors'>
           Contact Me
         </button>
         <a
           href='/yonatan-ayalon-resume-2025-10.pdf'
           download='Yonatan_Ayalon_Resume.pdf'
-          className='inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-600 hover:text-white transition-colors'
+          className='inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 font-medium rounded-lg hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white transition-colors'
         >
           <svg
             className='w-5 h-5 mr-2'

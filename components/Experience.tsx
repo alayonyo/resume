@@ -97,8 +97,8 @@ export default function Experience() {
   ];
 
   return (
-    <section className='bg-white rounded-lg shadow-lg p-8 mb-8'>
-      <h2 className='text-3xl font-bold text-gray-900 mb-6'>
+    <section className='bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-8 transition-colors'>
+      <h2 className='text-3xl font-bold text-gray-900 dark:text-white mb-6'>
         Professional Experience
       </h2>
       <div className='space-y-8'>
@@ -107,20 +107,24 @@ export default function Experience() {
             key={index}
             className='border-l-4 border-blue-500 pl-6'
           >
-            <h3 className='text-xl font-semibold text-gray-900'>{exp.title}</h3>
-            <p className='text-blue-600 font-medium'>
+            <h3 className='text-xl font-semibold text-gray-900 dark:text-white'>
+              {exp.title}
+            </h3>
+            <p className='text-blue-600 dark:text-blue-400 font-medium'>
               {exp.company} • {exp.period}
             </p>
-            <p className='text-gray-700 mt-3 leading-relaxed'>
+            <p className='text-gray-700 dark:text-gray-300 mt-3 leading-relaxed'>
               {exp.description}
             </p>
             <ul className='mt-3 space-y-1'>
               {exp.achievements.map((achievement, i) => (
                 <li
                   key={i}
-                  className='text-gray-600 text-sm flex items-start'
+                  className='text-gray-600 dark:text-gray-400 text-sm flex items-start'
                 >
-                  <span className='text-blue-500 mr-2'>•</span>
+                  <span className='text-blue-500 dark:text-blue-400 mr-2'>
+                    •
+                  </span>
                   {achievement}
                 </li>
               ))}
