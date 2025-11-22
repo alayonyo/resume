@@ -113,9 +113,6 @@ export default function Experience() {
             <p className='text-blue-600 dark:text-blue-400 font-medium'>
               {exp.company} • {exp.period}
             </p>
-            <p className='text-gray-600 dark:text-gray-400 font-medium'>
-              {exp.period}
-            </p>
             <p className='text-gray-700 dark:text-gray-300 mt-3 leading-relaxed'>
               {exp.description}
             </p>
