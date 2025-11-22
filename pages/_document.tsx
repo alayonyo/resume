@@ -4,11 +4,6 @@ export default function Document() {
   return (
     <Html lang='en'>
       <Head>
-        <title>
-          Yonatan Ayalon - Senior Front-End Software Engineer | React TypeScript
-          Expert
-        </title>
-
         {/* Favicon */}
         <link
           rel='icon'

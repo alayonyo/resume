@@ -5,7 +5,7 @@ export default function Contact() {
         Get In Touch
       </h2>
       <p className='text-gray-700 dark:text-gray-300 mb-4'>
-        I'm always interested in new opportunities and collaborations.
+        I&apos;m always interested in new opportunities and collaborations.
       </p>
       <div className='flex flex-col sm:flex-row gap-4 justify-center'>
         <a
