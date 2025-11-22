@@ -6,13 +6,13 @@ export default function Experience() {
       period: '07/2020 – Present',
       description: '',
       achievements: [
-        'Architected and maintained React (TS) + Redux infrastructure for the core application serving millions of users.',
-        'Designed and implemented micro frontend architecture enabling independent team deployments and scalability.',
-        'Built comprehensive performance monitoring and logging systems, improving application load times by 40%.',
-        'Led A/B testing initiatives and conversion optimization strategies, driving measurable improvements in user engagement and retention.',
-        'Constructed robust E2E testing infrastructure using Selenium & WebDriverIO, integrated with BrowserStack.',
-        'Led design system implementation across multiple product teams, ensuring UI consistency and developer efficiency.',
-        'Collaborated cross-functionally with product, design, and backend teams to ensure performance and accessibility.',
+        'Architected and maintained <strong>React (TypeScript) + Redux</strong> infrastructure for the core application serving <strong>millions of users</strong>.',
+        'Designed and implemented <strong>micro frontend architecture</strong> enabling independent team deployments and scalability.',
+        'Built comprehensive <strong>performance monitoring</strong> and logging systems, improving application load times by <strong>40%</strong>.',
+        'Led <strong>A/B testing initiatives</strong> and conversion optimization strategies, driving measurable improvements in user engagement and retention.',
+        'Constructed robust <strong>E2E testing infrastructure</strong> using Selenium & WebDriverIO, integrated with BrowserStack.',
+        'Led <strong>design system implementation</strong> across multiple product teams, ensuring UI consistency and developer efficiency.',
+        'Collaborated cross-functionally with product, design, and backend teams to ensure <strong>performance and accessibility</strong>.',
       ],
     },
     {
@@ -21,9 +21,9 @@ export default function Experience() {
       period: '01/2019 – 05/2020',
       description: '',
       achievements: [
-        'Sole front-end developer responsible for the UX/UI of the flagship customer application.',
-        'Refactored and maintained Angular (v1 and v2+) applications in TypeScript, significantly improving performance.',
-        'Directed UI/UX strategy and ensured design system consistency across views.',
+        'Sole <strong>front-end developer</strong> responsible for the UX/UI of the flagship <strong>FinTech customer application</strong>.',
+        'Refactored and maintained <strong>Angular (v1 and v2+)</strong> applications in <strong>TypeScript</strong>, significantly improving performance.',
+        'Directed UI/UX strategy and ensured <strong>design system consistency</strong> across views.',
       ],
     },
     {
@@ -32,9 +32,9 @@ export default function Experience() {
       period: '04/2017 – 12/2018',
       description: '',
       achievements: [
-        'Guided a team of front-end engineers in developing Angular-based applications tailored to customer specifications.',
-        'Managed projects end-to-end: client scoping, UX collaboration, architecture, development, and delivery.',
-        'Promoted test-driven development utilizing Karma and Jasmine.',
+        'Guided a team of <strong>front-end engineers</strong> in developing <strong>Angular-based applications</strong> tailored to customer specifications.',
+        'Managed projects <strong>end-to-end</strong>: client scoping, UX collaboration, architecture, development, and delivery.',
+        'Promoted <strong>test-driven development</strong> utilizing Karma and Jasmine.',
       ],
     },
     {
@@ -43,9 +43,9 @@ export default function Experience() {
       period: '10/2015 – 03/2017',
       description: '',
       achievements: [
-        'Spearheaded the Angular 2 migration and TypeScript implementation for new applications.',
-        'Shared front-end expertise within the team; introduced unit testing best practices.',
-        'Served as Scrum Master, effectively facilitating Agile development cycles.',
+        'Spearheaded the <strong>Angular 2 migration</strong> and <strong>TypeScript implementation</strong> for new applications.',
+        'Shared <strong>front-end expertise</strong> within the team; introduced <strong>unit testing best practices</strong>.',
+        'Served as <strong>Scrum Master</strong>, effectively facilitating <strong>Agile development cycles</strong>.',
       ],
     },
     {
@@ -54,9 +54,9 @@ export default function Experience() {
       period: '06/2011 – 09/2015',
       description: '',
       achievements: [
-        'Provided technical leadership for the SearchApps team, developing multiple high-scale web applications.',
-        'Created web UIs and extensions for millions of daily users, implementing A/B testing frameworks that significantly improved conversion rates and user engagement.',
-        'Developed responsive layouts, browser extensions, and image portal experiences focused on user experience optimization.',
+        'Provided <strong>technical leadership</strong> for the SearchApps team, developing multiple <strong>high-scale web applications</strong>.',
+        'Created web UIs and extensions for <strong>millions of daily users</strong>, implementing <strong>A/B testing frameworks</strong> that significantly improved conversion rates and user engagement.',
+        'Developed <strong>responsive layouts</strong>, browser extensions, and image portal experiences focused on <strong>user experience optimization</strong>.',
         'Delivered internal front-end training courses on MVC4, JavaScript best practices, and scalable design patterns.',
         'Full-stack experience: .NET MVC4/5, WebAPI, MySQL/MSSQL, CDN optimization, Amazon EC2 deployment.',
       ],
@@ -113,6 +113,9 @@ export default function Experience() {
             <p className='text-blue-600 dark:text-blue-400 font-medium'>
               {exp.company} • {exp.period}
             </p>
+            <p className='text-gray-600 dark:text-gray-400 font-medium'>
+              {exp.period}
+            </p>
             <p className='text-gray-700 dark:text-gray-300 mt-3 leading-relaxed'>
               {exp.description}
             </p>
@@ -125,7 +128,7 @@ export default function Experience() {
                   <span className='text-blue-500 dark:text-blue-400 mr-2'>
                     •
                   </span>
-                  {achievement}
+                  <span dangerouslySetInnerHTML={{ __html: achievement }} />
                 </li>
               ))}
             </ul>

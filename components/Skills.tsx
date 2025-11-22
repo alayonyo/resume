@@ -27,6 +27,7 @@ export default function Skills() {
       'Redux',
       'HTML/CSS',
       'Tailwind CSS',
+      'Chakra UI',
       'Storybook',
     ],
     'Backend & Databases': [

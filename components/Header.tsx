@@ -55,9 +55,9 @@ export default function Header() {
       <h1 className='text-5xl font-bold text-gray-900 dark:text-white mb-4'>
         Yonatan Ayalon
       </h1>
-      <p className='text-xl text-gray-600 dark:text-gray-300 mb-8'>
+      <h2 className='text-xl font-semibold text-gray-600 dark:text-gray-300 mb-8'>
         Senior Front-End Software Engineer
-      </p>
+      </h2>
       <div className='flex justify-center space-x-6 mb-6'>
         <a
           href='mailto:yonatanayalon1@gmail.com'
