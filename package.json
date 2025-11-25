@@ -7,24 +7,28 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:static": "next build && npm run export",
+    "generate:pdf": "node scripts/generateStaticPDF.js",
+    "build:static": "npm run generate:pdf && next build && npm run export",
     "export": "rm -rf deploy && mkdir -p deploy/_next/static && cp .next/server/pages/index.html deploy/ && cp .next/server/pages/404.html deploy/ && cp -r .next/static/* deploy/_next/static/ && cp -r public/* deploy/ && echo '✅ Static build complete! Files ready in deploy/ folder'",
     "serve:static": "cd deploy && python3 -m http.server 8000"
   },
   "dependencies": {
+    "@types/jspdf": "^2.0.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.4",
+    "next": "15.0.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "next": "15.0.3"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "typescript": "^5.7.2",
     "@types/node": "^22.9.3",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.0.3",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15",
-    "autoprefixer": "^10.4.20"
+    "typescript": "^5.7.2"
   }
 }
