@@ -33,6 +33,7 @@ export default function Skills() {
     'API & Integration': [
       'Node.js',
       'REST APIs',
+      'GraphQL',
       'API Design',
       'Microservices',
     ],
