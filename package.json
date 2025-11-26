@@ -12,7 +12,7 @@
     "generate:documents": "npm run generate:pdf && npm run generate:docx",
     "build:static": "npm run generate:documents && next build && npm run export",
     "export": "rm -rf deploy && mkdir -p deploy/_next/static && cp .next/server/pages/index.html deploy/ && cp .next/server/pages/404.html deploy/ && cp -r .next/static/* deploy/_next/static/ && cp -r public/* deploy/ && echo '✅ Static build complete! Files ready in deploy/ folder'",
-    "serve:static": "cd deploy && python3 -m http.server 8000"
+    "serve:static": "cd deploy && python3 -m http.server 8080"
   },
   "dependencies": {
     "@types/jspdf": "^2.0.0",
