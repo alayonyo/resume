@@ -14,9 +14,11 @@ A modern, responsive resume website built with Next.js, React, TypeScript, and T
 
 - **Modern Tech Stack**: Built with Next.js 15, React 18, and TypeScript
 - **Responsive Design**: Mobile-first design using Tailwind CSS
+- **ATS-Optimized Resume Downloads**: Generate professional PDF and DOCX formats
+- **Single Source of Truth**: Content managed from `data/resume.json`
 - **Fast Performance**: Optimized with Next.js App Router
 - **SEO Friendly**: Built-in meta tags and structured data
-- **Professional Layout**: Clean, modern design suitable for a professional resume
+- **Professional Layout**: Clean, modern design suitable for recruiters
 - **Type Safety**: Full TypeScript support for better development experience
 
 ## 🏃‍♂️ Getting Started
@@ -33,51 +35,68 @@ The development server is currently running. If you need to start it again:
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to see your resume website.
+Visit [http://localhost:3500](http://localhost:3500) to see your resume website.
 
 ## 📝 Available Scripts
 
-- `npm run dev` - Start development server (currently running)
+- `npm run dev` - Start development server on port 3500
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint for code quality
+- `npm run generate:pdf` - Generate ATS-optimized PDF resume
+- `npm run generate:docx` - Generate ATS-optimized DOCX resume
+- `npm run generate:documents` - Generate both PDF and DOCX resumes
+- `npm run build:static` - Build static site with generated documents
 
 ## Project Structure
 
 ```
-├── src/
-│   └── app/
-│       ├── globals.css      # Global styles with Tailwind
-│       ├── layout.tsx       # Root layout component
-│       └── page.tsx         # Home page component
-├── .github/
-│   └── copilot-instructions.md
-├── next.config.js           # Next.js configuration
-├── tailwind.config.js       # Tailwind CSS configuration
-├── tsconfig.json           # TypeScript configuration
-└── package.json            # Dependencies and scripts
+├── components/              # React components
+│   ├── Header.tsx          # Header with download buttons
+│   ├── Contact.tsx         # Contact section with download buttons
+│   ├── About.tsx           # Professional summary
+│   ├── Skills.tsx          # Technical skills
+│   ├── Experience.tsx      # Work experience
+│   └── Footer.tsx          # Footer with theme toggle
+├── data/
+│   ├── resume.json         # Single source of truth for content
+│   └── resumeData.ts       # TypeScript interfaces
+├── utils/
+│   ├── pdfGenerator.ts     # ATS-optimized PDF generation
+│   └── docxGenerator.ts    # ATS-optimized DOCX generation
+├── scripts/
+│   ├── generateStaticPDF.js    # Static PDF generator
+│   └── generateStaticDocx.js   # Static DOCX generator
+├── pages/                  # Next.js pages
+├── public/                 # Static files and generated documents
+├── docs/                   # Project documentation
+└── styles/                 # CSS styles
 ```
 
 ## 🎨 Customization
 
 To customize the resume content:
 
-1. **Personal Information**: Edit `src/app/page.tsx` to update your:
-   - Name and title
-   - Contact information (email, LinkedIn, GitHub)
-   - About me section
-   - Skills and technologies
-   - Work experience
-   - Contact section
+1. **Resume Content**: Edit `data/resume.json` to update:
+   - Personal information (name, title, contact details)
+   - Professional summary
+   - Technical skills by category
+   - Work experience and achievements
+   - Personal qualities/competencies
 
-2. **Site Metadata**: Modify `src/app/layout.tsx` to change:
-   - Page title and description
-   - SEO metadata
+2. **Document Generation**: After updating content:
+   - Run `npm run generate:documents` to create fresh PDF/DOCX files
+   - Both website and downloadable documents will reflect changes
 
-3. **Styling**: Update `src/app/globals.css` for:
-   - Custom colors and themes
-   - Additional Tailwind customizations
-   - Custom CSS styles
+3. **Styling**: Modify component files in `components/` for:
+   - Layout and design changes
+   - Button styling and colors
+   - Responsive behavior
+
+4. **Advanced**: Update generator files in `utils/` and `scripts/` for:
+   - Document formatting changes
+   - ATS optimization tweaks
+   - New export formats
 
 ## Built With
 

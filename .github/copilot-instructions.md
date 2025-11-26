@@ -32,4 +32,12 @@ This is a professional resume website built with Next.js, React, TypeScript, and
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 
-The development server is currently running at http://localhost:3000
+The development server runs at http://localhost:3500
+
+## Key Features
+
+- ATS-optimized PDF and DOCX resume generation
+- Single source of truth from `data/resume.json`
+- Dual download buttons: "Download Resume - PDF" and "Download Resume - DOCX"
+- Static and dynamic document generation
+- Professional design optimized for recruiters

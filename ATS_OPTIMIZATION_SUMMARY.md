@@ -90,7 +90,7 @@ PROFESSIONAL EXPERIENCE (Reverse chronological)
 
 ### Testing Dynamic Generation:
 
-- Visit the website and click "Download ATS-Optimized Resume"
+- Visit the website and click "Download Resume - PDF" or "Download Resume - DOCX"
 - Always generates from latest JSON data
 - Perfect for development and testing
 
