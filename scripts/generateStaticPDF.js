@@ -10,29 +10,32 @@ const generateStaticPDF = () => {
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
 
-  // Professional spacing settings
-  const margin = 12;
-  const lineHeight = 5;
-  const sectionSpacing = 1.5;
-  const experienceSpacing = 2.5;
+  // ATS-Optimized spacing - clean and consistent
+  const margin = 15; // Standard margins for ATS readability
+  const lineHeight = 4.5; // Optimal line spacing for ATS parsing
+  const sectionSpacing = 2; // Clear section breaks
+  const experienceSpacing = 3; // Proper job separations
 
   let yPosition = margin;
 
-  // Helper function to add text with word wrapping
+  // ATS-Optimized text formatting function
   const addText = (text, fontSize = 10, isBold = false, indent = 0) => {
-    if (yPosition > pageHeight - 18) {
+    // Check page boundaries with proper margins
+    if (yPosition > pageHeight - 20) {
       pdf.addPage();
       yPosition = margin;
     }
 
     pdf.setFontSize(fontSize);
+    // Use standard fonts for maximum ATS compatibility
     pdf.setFont('helvetica', isBold ? 'bold' : 'normal');
+    pdf.setTextColor(0, 0, 0); // Always black text for ATS
 
     const maxWidth = pageWidth - 2 * margin - indent;
     const lines = pdf.splitTextToSize(text, maxWidth);
 
     lines.forEach((line) => {
-      if (yPosition > pageHeight - 18) {
+      if (yPosition > pageHeight - 20) {
         pdf.addPage();
         yPosition = margin;
       }
@@ -41,101 +44,88 @@ const generateStaticPDF = () => {
     });
   };
 
+  // ATS-friendly section headers with clear formatting
   const addSection = (title) => {
-    yPosition += lineHeight * 0.8;
-    const titleSize = 13;
-    addText(title, titleSize, true);
-    yPosition += sectionSpacing;
+    yPosition += sectionSpacing; // Space before section
+    pdf.setFontSize(12);
+    pdf.setFont('helvetica', 'bold');
+    pdf.setTextColor(0, 0, 0);
+    pdf.text(title.toUpperCase(), margin, yPosition);
+    yPosition += lineHeight;
+    yPosition += sectionSpacing * 0.5; // Space after section title
   };
 
-  // Add PDF metadata for SEO
+  // Add comprehensive PDF metadata for SEO and ATS systems
   pdf.setProperties({
     title: 'Yonatan Ayalon - Senior Front-End Software Engineer Resume',
-    subject:
-      'Professional Resume - Frontend Engineer with 15+ years experience',
+    subject: 'Frontend Engineer Resume - React, TypeScript, JavaScript Expert',
     author: 'Yonatan Ayalon',
     keywords:
-      'frontend engineer, react, typescript, javascript, web development, senior software engineer',
-    creator: 'Yonatan Ayalon Resume Website',
-    producer: 'Next.js Resume Application',
+      'Senior Software Engineer, Frontend Developer, React, TypeScript, JavaScript, Next.js, Redux, Web Development, UI/UX, A/B Testing, Micro Frontend, Design Systems',
+    creator: 'Yonatan Ayalon Professional Resume',
   });
 
-  // Header
-  const nameSize = 18;
-  const titleSize = 13;
-  const contactSize = 10;
+  // ATS-Optimized Header - Clean and parseable
+  // Name - prominent but ATS-friendly sizing
+  addText(resumeData.personalInfo.name, 16, true);
 
-  addText(resumeData.personalInfo.name, nameSize, true);
-  addText(resumeData.personalInfo.title, titleSize, false);
+  // Job Title - clear and keyword-rich
+  addText(resumeData.personalInfo.title, 12, false);
 
-  // Add email as clickable blue link and location in black
-  pdf.setFontSize(contactSize);
-  pdf.setFont('helvetica', 'normal');
+  yPosition += sectionSpacing;
 
-  // Add email as blue clickable link
-  pdf.setTextColor(0, 0, 255); // Blue color for email
-  const emailText = resumeData.personalInfo.email;
-  const emailWidth = pdf.getTextWidth(emailText);
-  pdf.textWithLink(emailText, margin, yPosition, {
-    url: `mailto:${emailText}`,
-  });
-
-  // Add separator and location in black
-  pdf.setTextColor(0, 0, 0); // Black color for separator and location
-  const separatorX = margin + emailWidth;
-  pdf.text(' | ', separatorX, yPosition);
-  const separatorWidth = pdf.getTextWidth(' | ');
-  pdf.text(
+  // Contact Information - ATS-friendly format
+  const contactInfo = [
+    resumeData.personalInfo.email,
     resumeData.personalInfo.location,
-    separatorX + separatorWidth,
-    yPosition
-  );
+    resumeData.personalInfo.linkedin,
+    resumeData.personalInfo.github,
+  ].join(' | ');
 
-  yPosition += lineHeight * 1.2;
+  addText(contactInfo, 10, false);
+  yPosition += sectionSpacing * 2;
 
-  // Professional Summary
+  // PROFESSIONAL SUMMARY - ATS keyword-optimized
   addSection('PROFESSIONAL SUMMARY');
-  const summarySize = 10;
-  resumeData.professionalSummary.forEach((paragraph) => {
-    addText(paragraph.replace(/<[^>]*>/g, ''), summarySize);
+  resumeData.professionalSummary.forEach((paragraph, index) => {
+    const cleanText = paragraph.replace(/<[^>]*>/g, '');
+    addText(cleanText, 10);
+    if (index < resumeData.professionalSummary.length - 1) {
+      yPosition += sectionSpacing * 0.5;
+    }
+  });
+
+  // TECHNICAL SKILLS - ATS-optimized with high keyword density
+  addSection('TECHNICAL SKILLS');
+  Object.entries(resumeData.skills).forEach(([category, skills]) => {
+    addText(category + ':', 10, true);
+    const skillsText = skills.join(' • ');
+    addText(skillsText, 10, false, 5);
     yPosition += sectionSpacing * 0.8;
   });
 
-  // Professional Skills
-  addSection('PROFESSIONAL SKILLS');
-  const skillCategorySize = 10;
-  const skillSize = 9.5;
-  Object.entries(resumeData.skills).forEach(([category, skills]) => {
-    addText(category, skillCategorySize, true);
-    const skillsText = skills.join(' • ');
-    addText(skillsText, skillSize, false, 4);
-    yPosition += sectionSpacing * 0.6;
-  });
-
-  // Personal Skills / Character
-  addSection('PERSONAL SKILLS / CHARACTER');
+  // CORE COMPETENCIES - ATS-friendly soft skills
+  addSection('CORE COMPETENCIES');
   const qualitiesText = resumeData.personalQualities.join(' • ');
-  addText(qualitiesText, skillSize, false);
-  yPosition += lineHeight * 1;
+  addText(qualitiesText, 10);
 
-  // Professional Experience - Always start on new page
-  pdf.addPage();
-  yPosition = margin;
+  yPosition += sectionSpacing * 2;
+
+  // PROFESSIONAL EXPERIENCE - ATS-optimized format
   addSection('PROFESSIONAL EXPERIENCE');
-  const jobTitleSize = 10;
-  const companySize = 9;
-  const achievementSize = 8;
 
   resumeData.experience.forEach((exp, index) => {
     if (index > 0) yPosition += experienceSpacing;
 
-    addText(exp.title, jobTitleSize, true);
-    addText(`${exp.company} • ${exp.period}`, companySize, false);
-    yPosition += sectionSpacing * 0.6;
+    // Job title and company - clear hierarchy for ATS
+    addText(exp.title, 11, true);
+    addText(`${exp.company} | ${exp.period}`, 10, false);
+    yPosition += sectionSpacing * 0.5;
 
+    // Achievements with consistent bullet formatting
     exp.achievements.forEach((achievement) => {
       const cleanAchievement = achievement.replace(/<[^>]*>/g, '');
-      addText(`• ${cleanAchievement}`, achievementSize, false, 5);
+      addText(`• ${cleanAchievement}`, 9, false, 3);
     });
   });
 
@@ -156,14 +146,22 @@ const generatePDF = () => {
     const pdf = generateStaticPDF();
     const buffer = Buffer.from(pdf.output('arraybuffer'));
     fs.writeFileSync(path.join(publicDir, 'yonatan-ayalon-resume.pdf'), buffer);
-    console.log('✅ PDF generated: /public/yonatan-ayalon-resume.pdf');
-
-    console.log('\n🎉 Static PDF generated successfully!');
     console.log(
-      'This file is now SEO-friendly and can be directly linked/indexed.'
+      '✅ ATS-optimized PDF generated: /public/yonatan-ayalon-resume.pdf'
     );
+
+    console.log('\n🎉 ATS-Optimized Static PDF generated successfully!');
+    console.log('📋 ATS Features:');
     console.log(
-      '📄 Content synced from shared data source in /data/resumeData.js'
+      '   • Clean, simple formatting for maximum parsing compatibility'
+    );
+    console.log('   • Standard fonts and consistent spacing');
+    console.log('   • Keyword-optimized technical skills section');
+    console.log('   • Clear section headers with proper hierarchy');
+    console.log('   • Simple bullet points and standard formatting');
+    console.log('\n🔍 SEO-friendly and directly linkable/indexable');
+    console.log(
+      '📄 Content synced from shared data source in /data/resume.json'
     );
   } catch (error) {
     console.error('❌ Error generating PDF:', error);
