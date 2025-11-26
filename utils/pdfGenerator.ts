@@ -159,10 +159,8 @@ export const generateResumePDF = async (
       });
     });
 
-    // Save ATS-optimized PDF
-    const fileName = `yonatan-ayalon-resume-${
-      new Date().toISOString().split('T')[0]
-    }.pdf`;
+    // Save ATS-optimized PDF with consistent filename
+    const fileName = 'yonatan-ayalon-resume.pdf';
     pdf.save(fileName);
 
     console.log('✅ ATS-optimized PDF generated successfully!');
