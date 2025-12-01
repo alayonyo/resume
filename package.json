@@ -9,6 +9,7 @@
     "lint": "next lint",
     "generate:pdf": "node scripts/generateStaticPDF.js",
     "generate:docx": "node scripts/generateStaticDocx.js",
+    "generate:yahoo-pdf": "node scripts/generateYahooPDF.js",
     "generate:documents": "npm run generate:pdf && npm run generate:docx",
     "build:static": "npm run generate:documents && next build && npm run export",
     "export": "rm -rf deploy && mkdir -p deploy/_next/static && cp .next/server/pages/index.html deploy/ && cp .next/server/pages/404.html deploy/ && cp -r .next/static/* deploy/_next/static/ && cp -r public/* deploy/ && echo '✅ Static build complete! Files ready in deploy/ folder'",

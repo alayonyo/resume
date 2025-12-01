@@ -1,6 +1,7 @@
 # Yonatan Resume - Next.js React App
 
-A modern, responsive resume website built with Next.js, React, TypeScript, and Tailwind CSS.
+A modern, responsive resume website built with Next.js, React, TypeScript, and
+Tailwind CSS.
 
 ## 🚀 Project Status
 
@@ -20,10 +21,49 @@ A modern, responsive resume website built with Next.js, React, TypeScript, and T
 - **SEO Friendly**: Built-in meta tags and structured data
 - **Professional Layout**: Clean, modern design suitable for recruiters
 - **Type Safety**: Full TypeScript support for better development experience
+- **Job-Specific Resumes**: Generate tailored resumes for specific positions
+
+## 🎯 Job-Specific Resume Generation
+
+This project supports creating tailored resumes for specific job positions.
+Currently includes:
+
+### Yahoo Frontend Engineer Resume
+
+A specialized resume optimized for Yahoo's Frontend Engineer position featuring:
+
+- **Reorganized Skills**: Prioritizes Yahoo-relevant technologies (React,
+  Next.js, TypeScript, A/B testing)
+- **Enhanced Professional Summary**: Emphasizes large-scale application
+  experience and modern web technologies
+- **Targeted Experience Descriptions**: Highlights collaboration with
+  product/design teams and remote work experience
+- **Yahoo Requirements Alignment**: Includes specific section mapping
+  qualifications to job requirements
+- **ATS Optimization**: Clean formatting for applicant tracking systems
+
+**Generate Yahoo Resume:**
+
+```bash
+npm run generate:yahoo-pdf
+```
+
+This creates: `public/yonatan-ayalon-resume-yahoo-frontend-engineer.pdf`
+
+### Adding New Job-Specific Resumes
+
+To create resumes for other positions:
+
+1. **Create Data File**: Add new resume data in `data/[company]-resume.json`
+2. **Build Generator**: Create generator script in
+   `utils/[company]ResumeGenerator.js`
+3. **Add Script**: Create generation script in `scripts/generate[Company]PDF.js`
+4. **Update package.json**: Add npm script for easy generation
 
 ## 🏃‍♂️ Getting Started
 
-The project is already set up and ready to use! If you need to reinstall dependencies:
+The project is already set up and ready to use! If you need to reinstall
+dependencies:
 
 ```bash
 npm install
@@ -45,6 +85,7 @@ Visit [http://localhost:3500](http://localhost:3500) to see your resume website.
 - `npm run lint` - Run ESLint for code quality
 - `npm run generate:pdf` - Generate ATS-optimized PDF resume
 - `npm run generate:docx` - Generate ATS-optimized DOCX resume
+- `npm run generate:yahoo-pdf` - Generate Yahoo-specific PDF resume
 - `npm run generate:documents` - Generate both PDF and DOCX resumes
 - `npm run build:static` - Build static site with generated documents
 
@@ -60,13 +101,18 @@ Visit [http://localhost:3500](http://localhost:3500) to see your resume website.
 │   └── Footer.tsx          # Footer with theme toggle
 ├── data/
 │   ├── resume.json         # Single source of truth for content
-│   └── resumeData.ts       # TypeScript interfaces
+│   ├── yahoo-resume.json   # Yahoo-specific resume data
+│   ├── resumeData.ts       # TypeScript interfaces
+│   └── yahooResumeData.ts  # Yahoo-specific TypeScript data
 ├── utils/
 │   ├── pdfGenerator.ts     # ATS-optimized PDF generation
-│   └── docxGenerator.ts    # ATS-optimized DOCX generation
+│   ├── docxGenerator.ts    # ATS-optimized DOCX generation
+│   ├── yahooResumeGeneratorJS.js  # Yahoo PDF generator (script)
+│   └── yahooResumeGeneratorWeb.ts # Yahoo PDF generator (web)
 ├── scripts/
 │   ├── generateStaticPDF.js    # Static PDF generator
-│   └── generateStaticDocx.js   # Static DOCX generator
+│   ├── generateStaticDocx.js   # Static DOCX generator
+│   └── generateYahooPDF.js     # Yahoo-specific PDF generator
 ├── pages/                  # Next.js pages
 ├── public/                 # Static files and generated documents
 ├── docs/                   # Project documentation
@@ -78,6 +124,7 @@ Visit [http://localhost:3500](http://localhost:3500) to see your resume website.
 To customize the resume content:
 
 1. **Resume Content**: Edit `data/resume.json` to update:
+
    - Personal information (name, title, contact details)
    - Professional summary
    - Technical skills by category
@@ -85,10 +132,13 @@ To customize the resume content:
    - Personal qualities/competencies
 
 2. **Document Generation**: After updating content:
+
    - Run `npm run generate:documents` to create fresh PDF/DOCX files
+   - Run `npm run generate:yahoo-pdf` to create job-specific resume
    - Both website and downloadable documents will reflect changes
 
 3. **Styling**: Modify component files in `components/` for:
+
    - Layout and design changes
    - Button styling and colors
    - Responsive behavior
@@ -101,7 +151,8 @@ To customize the resume content:
 ## Built With
 
 - [Next.js](https://nextjs.org/) - React framework
-- [React](https://reactjs.org/) - JavaScript library for building user interfaces
+- [React](https://reactjs.org/) - JavaScript library for building user
+  interfaces
 - [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [ESLint](https://eslint.org/) - Code linting tool
@@ -110,21 +161,26 @@ To customize the resume content:
 
 To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
+  features and API
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial
 
 ## 🚀 Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy your Next.js app is to use the
+[Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
+from the creators of Next.js.
 
 ### Quick Deploy Options:
 
 1. **Vercel** (Recommended)
+
    - Connect your GitHub repository
    - Automatic deployments on every push
    - Built-in CDN and optimizations
 
 2. **Netlify**
+
    - Drag and drop the `out` folder after running `npm run build`
    - Or connect your Git repository
 
@@ -132,8 +188,12 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
    - Configure static export in `next.config.js`
    - Use GitHub Actions for automated deployment
 
-Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out the
+[Next.js deployment documentation](https://nextjs.org/docs/deployment) for more
+details.
 
 ## 📧 Need Help?
 
-If you encounter any issues or need to make changes, the project structure is well-organized and documented. All major files are in the `src/app/` directory for easy navigation.
+If you encounter any issues or need to make changes, the project structure is
+well-organized and documented. All major files are in the `src/app/` directory
+for easy navigation.
