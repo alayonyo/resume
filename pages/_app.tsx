@@ -35,7 +35,11 @@ export default function App({ Component, pageProps }: AppProps) {
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', 'G-F5DRLQZC9Z');
+          gtag('config', 'G-F5DRLQZC9Z', {
+            cookie_flags: 'SameSite=None;Secure',
+            anonymize_ip: true,
+            allow_ad_personalization_signals: false
+          });
         `}
       </Script>
 

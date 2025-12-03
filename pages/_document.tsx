@@ -39,7 +39,7 @@ export default function Document() {
         />
         <link
           rel='canonical'
-          href='https://yonatanayalon.com'
+          href='https://yonatan-ayalon.com'
         />
 
         {/* Open Graph / Facebook */}
@@ -57,7 +57,7 @@ export default function Document() {
         />
         <meta
           property='og:url'
-          content='https://yonatanayalon.com'
+          content='https://yonatan-ayalon.com'
         />
         <meta
           property='og:site_name'
@@ -103,7 +103,7 @@ export default function Document() {
               jobTitle: 'Senior Front-End Software Engineer',
               description:
                 'Senior Front-End Software Engineer with 15+ years of experience in client architecture, micro frontend systems, and experimentation platforms',
-              url: 'https://yonatanayalon.com',
+              url: 'https://yonatan-ayalon.com',
               email: 'yonatanayalon1@gmail.com',
               sameAs: [
                 'https://www.linkedin.com/in/yonatan-ayalon-25992014/',

@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://yonatanayalon.com/sitemap.xml
+Sitemap: https://yonatan-ayalon.com/sitemap.xml
 
 # Disallow specific files
 Disallow: /_next/
