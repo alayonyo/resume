@@ -166,4 +166,4 @@ export const yahooResumeData = {
       ],
     },
   ],
-} as const;
+};

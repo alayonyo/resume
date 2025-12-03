@@ -107,8 +107,8 @@ Visit [http://localhost:3500](http://localhost:3500) to see your resume website.
 ├── utils/
 │   ├── pdfGenerator.ts     # ATS-optimized PDF generation
 │   ├── docxGenerator.ts    # ATS-optimized DOCX generation
-│   ├── yahooResumeGeneratorJS.js  # Yahoo PDF generator (script)
-│   └── yahooResumeGeneratorWeb.ts # Yahoo PDF generator (web)
+│   ├── yahooResumeGenerator.ts    # Yahoo PDF generator (TypeScript)
+│   └── yahooResumeGeneratorJS.js  # Yahoo PDF generator (script)
 ├── scripts/
 │   ├── generateStaticPDF.js    # Static PDF generator
 │   ├── generateStaticDocx.js   # Static DOCX generator
