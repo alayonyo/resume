@@ -96,6 +96,7 @@ const generateStaticPDF = () => {
   });
 
   // TECHNICAL SKILLS - ATS-optimized with high keyword density
+  yPosition += sectionSpacing * 2;
   addSection('TECHNICAL SKILLS');
   Object.entries(resumeData.skills).forEach(([category, skills]) => {
     addText(category + ':', 10, true);
@@ -105,6 +106,7 @@ const generateStaticPDF = () => {
   });
 
   // CORE COMPETENCIES - ATS-friendly soft skills
+  yPosition += sectionSpacing * 2;
   addSection('CORE COMPETENCIES');
   const qualitiesText = resumeData.personalQualities.join(' • ');
   addText(qualitiesText, 10);
@@ -112,6 +114,7 @@ const generateStaticPDF = () => {
   yPosition += sectionSpacing * 2;
 
   // PROFESSIONAL EXPERIENCE - ATS-optimized format
+  yPosition += sectionSpacing * 2;
   addSection('PROFESSIONAL EXPERIENCE');
 
   resumeData.experience.forEach((exp, index) => {

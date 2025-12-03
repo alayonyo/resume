@@ -1,4 +1,11 @@
-import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
+import {
+  Document,
+  Packer,
+  Paragraph,
+  TextRun,
+  HeadingLevel,
+  AlignmentType,
+} from 'docx';
 import { saveAs } from 'file-saver';
 import { resumeData } from '../data/resumeData';
 
@@ -35,8 +42,10 @@ export const generateResumeDocx = async (
     const doc = new Document({
       creator: 'Yonatan Ayalon Professional Resume',
       title: 'Yonatan Ayalon - Senior Front-End Software Engineer Resume',
-      description: 'Frontend Engineer Resume - React, TypeScript, JavaScript Expert',
-      keywords: 'Senior Software Engineer, Frontend Developer, React, TypeScript, JavaScript, Next.js, Redux, Web Development, UI/UX, A/B Testing, Micro Frontend, Design Systems',
+      description:
+        'Frontend Engineer Resume - React, TypeScript, JavaScript Expert',
+      keywords:
+        'Senior Software Engineer, Frontend Developer, React, TypeScript, JavaScript, Next.js, Redux, Web Development, UI/UX, A/B Testing, Micro Frontend, Design Systems',
       sections: [
         {
           properties: {},
@@ -53,7 +62,7 @@ export const generateResumeDocx = async (
               alignment: AlignmentType.CENTER,
               spacing: { after: 200 },
             }),
-            
+
             new Paragraph({
               children: [
                 new TextRun({
@@ -73,7 +82,7 @@ export const generateResumeDocx = async (
                     data.personalInfo.email,
                     data.personalInfo.location,
                     data.personalInfo.linkedin,
-                    data.personalInfo.github
+                    data.personalInfo.github,
                   ].join(' | '),
                   size: 20, // 10pt font
                 }),
@@ -96,18 +105,20 @@ export const generateResumeDocx = async (
             }),
 
             // Professional Summary Content
-            ...data.professionalSummary.map((paragraph, index) => 
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: paragraph.replace(/<[^>]*>/g, ''),
-                    size: 20, // 10pt font
-                  }),
-                ],
-                spacing: { 
-                  after: index < data.professionalSummary.length - 1 ? 200 : 400 
-                },
-              })
+            ...data.professionalSummary.map(
+              (paragraph, index) =>
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: paragraph.replace(/<[^>]*>/g, ''),
+                      size: 20, // 10pt font
+                    }),
+                  ],
+                  spacing: {
+                    after:
+                      index < data.professionalSummary.length - 1 ? 200 : 400,
+                  },
+                })
             ),
 
             // Technical Skills Section
@@ -120,32 +131,34 @@ export const generateResumeDocx = async (
                 }),
               ],
               heading: HeadingLevel.HEADING_2,
-              spacing: { before: 400, after: 200 },
+              spacing: { before: 600, after: 200 },
             }),
 
             // Technical Skills Content
-            ...Object.entries(data.skills).map(([category, skills]) => [
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: category + ':',
-                    bold: true,
-                    size: 20, // 10pt font
-                  }),
-                ],
-                spacing: { after: 100 },
-              }),
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: skills.join(' • '),
-                    size: 20, // 10pt font
-                  }),
-                ],
-                indent: { left: 360 }, // 0.25 inch indent
-                spacing: { after: 200 },
-              })
-            ]).flat(),
+            ...Object.entries(data.skills)
+              .map(([category, skills]) => [
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: category + ':',
+                      bold: true,
+                      size: 20, // 10pt font
+                    }),
+                  ],
+                  spacing: { after: 100 },
+                }),
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: skills.join(' • '),
+                      size: 20, // 10pt font
+                    }),
+                  ],
+                  indent: { left: 360 }, // 0.25 inch indent
+                  spacing: { after: 200 },
+                }),
+              ])
+              .flat(),
 
             // Core Competencies Section
             new Paragraph({
@@ -157,7 +170,7 @@ export const generateResumeDocx = async (
                 }),
               ],
               heading: HeadingLevel.HEADING_2,
-              spacing: { before: 400, after: 200 },
+              spacing: { before: 600, after: 200 },
             }),
 
             new Paragraph({
@@ -180,54 +193,61 @@ export const generateResumeDocx = async (
                 }),
               ],
               heading: HeadingLevel.HEADING_2,
-              spacing: { before: 400, after: 200 },
+              spacing: { before: 600, after: 200 },
             }),
 
             // Professional Experience Content
-            ...data.experience.map((exp, index) => [
-              // Add spacing between jobs
-              ...(index > 0 ? [new Paragraph({
-                children: [new TextRun({ text: '', size: 20 })],
-                spacing: { after: 300 },
-              })] : []),
-              
-              // Job Title
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: exp.title,
-                    bold: true,
-                    size: 22, // 11pt font
-                  }),
-                ],
-                spacing: { after: 100 },
-              }),
-              
-              // Company and Period
-              new Paragraph({
-                children: [
-                  new TextRun({
-                    text: `${exp.company} | ${exp.period}`,
-                    size: 20, // 10pt font
-                  }),
-                ],
-                spacing: { after: 200 },
-              }),
-              
-              // Achievements
-              ...exp.achievements.map((achievement) =>
+            ...data.experience
+              .map((exp, index) => [
+                // Add spacing between jobs
+                ...(index > 0
+                  ? [
+                      new Paragraph({
+                        children: [new TextRun({ text: '', size: 20 })],
+                        spacing: { after: 300 },
+                      }),
+                    ]
+                  : []),
+
+                // Job Title
                 new Paragraph({
                   children: [
                     new TextRun({
-                      text: `• ${achievement.replace(/<[^>]*>/g, '')}`,
-                      size: 18, // 9pt font
+                      text: exp.title,
+                      bold: true,
+                      size: 22, // 11pt font
                     }),
                   ],
-                  indent: { left: 180 }, // 0.125 inch indent
                   spacing: { after: 100 },
-                })
-              )
-            ]).flat(),
+                }),
+
+                // Company and Period
+                new Paragraph({
+                  children: [
+                    new TextRun({
+                      text: `${exp.company} | ${exp.period}`,
+                      size: 20, // 10pt font
+                    }),
+                  ],
+                  spacing: { after: 200 },
+                }),
+
+                // Achievements
+                ...exp.achievements.map(
+                  (achievement) =>
+                    new Paragraph({
+                      children: [
+                        new TextRun({
+                          text: `• ${achievement.replace(/<[^>]*>/g, '')}`,
+                          size: 18, // 9pt font
+                        }),
+                      ],
+                      indent: { left: 180 }, // 0.125 inch indent
+                      spacing: { after: 100 },
+                    })
+                ),
+              ])
+              .flat(),
           ],
         },
       ],
@@ -235,14 +255,16 @@ export const generateResumeDocx = async (
 
     // Generate and save DOCX file
     const buffer = await Packer.toBuffer(doc);
-    const fileName = `yonatan-ayalon-resume-${new Date().toISOString().split('T')[0]}.docx`;
-    
+    const fileName = `yonatan-ayalon-resume-${
+      new Date().toISOString().split('T')[0]
+    }.docx`;
+
     // Create blob and save file
-    const blob = new Blob([new Uint8Array(buffer)], { 
-      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
+    const blob = new Blob([new Uint8Array(buffer)], {
+      type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     });
     saveAs(blob, fileName);
-    
+
     console.log('✅ ATS-optimized DOCX generated successfully!');
   } catch (error) {
     console.error('❌ Error generating ATS-optimized DOCX:', error);
