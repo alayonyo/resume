@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Chat Widget - Microfrontend</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <style>
+      body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          padding: 20px;
+          background: #f5f7fa;
+      }
+      h1 {
+          color: #333;
+      }
+      .demo-container {
+          margin-top: 30px;
+          padding: 20px;
+          background: white;
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      }
+      .demo-widget {
+          margin-top: 20px;
+          border: 2px dashed #ccc;
+          padding: 20px;
+          border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Chat Widget Microfrontend - Development Mode</h1>
+    <p>This service provides the chat widget as a microfrontend.</p>
+    <p>
+      <strong>remoteEntry.js</strong> is available at:
+      <a href="/remoteEntry.js">/remoteEntry.js</a>
+    </p>
+
+    <div class="demo-container">
+      <h2>Demo 1: ChatButton (with toggle)</h2>
+      <p>Click the button in the bottom-right corner to open the chat widget</p>
+      <div id="demo-button"></div>
+    </div>
+
+    <div class="demo-container">
+      <h2>Demo 2: ChatWidget (always visible)</h2>
+      <p>The chat widget displayed directly without the toggle button</p>
+      <div class="demo-widget">
+        <div id="demo-widget"></div>
+      </div>
+    </div>
+
+    <!-- Load the actual widget module -->
+    <script src="/remoteEntry.js"></script>
+
+    <script>
+      // Demo the widgets on this page
+      setTimeout(() => {
+          if (window.chatWidget && window.React && window.ReactDOM) {
+              console.log('✅ chatWidget module loaded successfully');
+
+              // Demo 1: ChatButton (toggleable)
+              window.chatWidget.get('./ChatButton').then(factory => {
+                  const ChatButton = factory().default;
+                  const root1 = ReactDOM.createRoot(document.getElementById('demo-button'));
+                  root1.render(React.createElement(ChatButton, {
+                      botName: 'Demo Bot',
+                      welcomeMessage: 'This is a demo of the microfrontend chat widget in development mode!',
+                      buttonColor: '#28a745'
+                  }));
+                  console.log('✅ ChatButton rendered');
+
+                  // Wait a bit and check if styles are loaded
+                  setTimeout(() => {
+                      const styles = Array.from(document.querySelectorAll('style'));
+                      console.log(`📊 Found ${styles.length} style tags in document`);
+                      const hasWidgetStyles = styles.some(style =>
+                          style.textContent.includes('.chat-widget') ||
+                          style.textContent.includes('.message-input')
+                      );
+                      console.log(`📊 Widget styles loaded: ${hasWidgetStyles ? '✅ YES' : '❌ NO'}`);
+
+                      if (!hasWidgetStyles) {
+                          console.warn('⚠️ CSS not loaded! This is why the input field might be invisible.');
+                      }
+                  }, 1000);
+              }).catch(err => {
+                  console.error('❌ Failed to load ChatButton:', err);
+              });
+
+              // Demo 2: ChatWidget (always visible)
+              window.chatWidget.get('./ChatWidget').then(factory => {
+                  const ChatWidget = factory().default;
+                  const root2 = ReactDOM.createRoot(document.getElementById('demo-widget'));
+                  root2.render(React.createElement(ChatWidget, {
+                      botName: 'Always Visible Bot',
+                      welcomeMessage: 'I am always visible! Test the input field below.',
+                      placeholder: 'Type your message here...'
+                  }));
+                  console.log('✅ ChatWidget rendered');
+
+                  // Check if the input field exists
+                  setTimeout(() => {
+                      const inputField = document.querySelector('.message-input');
+                      const chatInput = document.querySelector('.chat-input');
+                      console.log(`📊 Input field in DOM: ${inputField ? '✅ YES' : '❌ NO'}`);
+                      console.log(`📊 Chat input container in DOM: ${chatInput ? '✅ YES' : '❌ NO'}`);
+
+                      if (inputField) {
+                          const styles = window.getComputedStyle(inputField);
+                          console.log(`📊 Input field display: ${styles.display}`);
+                          console.log(`📊 Input field visibility: ${styles.visibility}`);
+                          console.log(`📊 Input field opacity: ${styles.opacity}`);
+                      }
+                  }, 500);
+              }).catch(err => {
+                  console.error('❌ Failed to load ChatWidget:', err);
+              });
+          } else {
+              console.error('❌ chatWidget module not loaded. Check:', {
+                  chatWidget: window.chatWidget,
+                  React: window.React,
+                  ReactDOM: window.ReactDOM
+              });
+          }
+      }, 1000);
+    </script>
+  </body>
+</html>

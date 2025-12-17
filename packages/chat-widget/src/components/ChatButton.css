@@ -1,0 +1,140 @@
+.chat-container {
+  position: fixed;
+  z-index: 1000;
+}
+
+.chat-container-bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.chat-container-bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.chat-container-top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.chat-container-top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.chat-toggle-button {
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.chat-toggle-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.chat-toggle-button:active {
+  transform: scale(0.95);
+}
+
+.chat-button-small {
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+}
+
+.chat-button-medium {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+}
+
+.chat-button-large {
+  width: 70px;
+  height: 70px;
+  font-size: 28px;
+}
+
+.chat-button-open {
+  background: #e53e3e !important;
+}
+
+.chat-widget-container {
+  position: absolute;
+  animation: slideIn 0.3s ease-out;
+}
+
+.chat-widget-below {
+  bottom: 80px;
+  right: 0;
+}
+
+.chat-widget-above {
+  top: 80px;
+  right: 0;
+}
+
+.chat-container-bottom-left .chat-widget-below,
+.chat-container-top-left .chat-widget-above {
+  right: auto;
+  left: 0;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .chat-container {
+    bottom: 10px !important;
+    right: 10px !important;
+    left: 10px !important;
+  }
+
+  .chat-widget-container {
+    position: fixed;
+    bottom: 80px;
+    left: 10px;
+    right: 10px;
+  }
+
+  .chat-widget-container .chat-widget {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* Accessibility improvements */
+.chat-toggle-button:focus {
+  outline: 3px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-toggle-button,
+  .chat-widget-container {
+    transition: none;
+    animation: none;
+  }
+
+  .chat-toggle-button:hover {
+    transform: none;
+  }
+}

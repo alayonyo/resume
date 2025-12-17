@@ -1,0 +1,147 @@
+# Chat Widget Microfrontend
+
+A decoupled chat widget built as a microfrontend using React, TypeScript, and
+Webpack Module Federation.
+
+## Features
+
+- 🚀 **Microfrontend Architecture**: Built with Webpack Module Federation for
+  decoupled deployment
+- 💬 **Interactive Chat**: Full-featured chat interface with typing indicators
+- 🎨 **Customizable**: Multiple themes, positions, and styling options
+- 📱 **Responsive**: Works on desktop and mobile devices
+- ♿ **Accessible**: Built with accessibility best practices
+- 🔧 **TypeScript**: Fully typed for better developer experience
+
+## Development
+
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+The widget will be available at `http://localhost:3001` for standalone
+development.
+
+### Build
+
+```bash
+# Production build
+npm run build
+
+# Development build
+npm run build:dev
+```
+
+## Integration
+
+### As a Microfrontend
+
+The widget exposes the following modules via Module Federation:
+
+- `./ChatWidget` - The main chat interface component
+- `./ChatButton` - A floating chat button with toggle functionality
+
+### Usage Examples
+
+#### Basic Chat Widget
+
+```tsx
+import { ChatWidget } from 'chatWidget/ChatWidget';
+
+function App() {
+  const handleMessage = (message: string) => {
+    console.log('User sent:', message);
+  };
+
+  return (
+    <ChatWidget
+      onMessageSent={handleMessage}
+      botName="Assistant"
+      welcomeMessage="Hello! How can I help you?"
+      theme="light"
+    />
+  );
+}
+```
+
+#### Floating Chat Button
+
+```tsx
+import { ChatButton } from 'chatWidget/ChatButton';
+
+function App() {
+  return (
+    <ChatButton
+      position="bottom-right"
+      size="medium"
+      buttonColor="#667eea"
+      botName="Support"
+      welcomeMessage="Hi! Need help with anything?"
+    />
+  );
+}
+```
+
+## Configuration Options
+
+### ChatWidget Props
+
+- `onMessageSent?: (message: string) => void` - Callback when user sends a
+  message
+- `botName?: string` - Display name for the bot (default: "Assistant")
+- `welcomeMessage?: string` - Initial message from bot
+- `placeholder?: string` - Input placeholder text
+- `theme?: 'light' | 'dark'` - Visual theme
+
+### ChatButton Props
+
+Includes all ChatWidget props plus:
+
+- `buttonText?: string` - Text/emoji for the toggle button (default: "💬")
+- `position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'` -
+  Button position
+- `buttonColor?: string` - Custom button color (default: "#667eea")
+- `size?: 'small' | 'medium' | 'large'` - Button size
+
+## Architecture
+
+This package is designed as a microfrontend that can be:
+
+1. **Developed independently** - Has its own build system and dependencies
+2. **Deployed separately** - Can be updated without touching the host
+   application
+3. **Runtime integrated** - Loaded dynamically by the host application
+4. **Shared dependencies** - Efficiently shares React/ReactDOM with the host
+
+## Scripts
+
+- `npm run dev` - Start development server with hot reload
+- `npm run build` - Production build with optimization
+- `npm run build:dev` - Development build without minification
+- `npm run type-check` - TypeScript type checking
+- `npm run lint` - ESLint code linting
+- `npm run clean` - Clean dist directory
+
+## File Structure
+
+```
+src/
+├── components/
+│   ├── ChatWidget.tsx       # Main chat interface
+│   ├── ChatWidget.css       # Chat widget styles
+│   ├── ChatButton.tsx       # Floating chat button
+│   └── ChatButton.css       # Button styles
+├── index.tsx                # Entry point & exports
+└── types.d.ts              # TypeScript definitions
+```

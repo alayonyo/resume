@@ -6,6 +6,7 @@ import ProfessionalQualities from '../components/ProfessionalQualities';
 import Experience from '../components/Experience';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import RemoteChatWrapper from '../components/RemoteChatWrapper';
 
 export default function Home() {
   return (
@@ -31,6 +32,15 @@ export default function Home() {
           </div>
         </div>
         <Footer />
+
+        {/* Chat Widget - Microfrontend */}
+        <RemoteChatWrapper
+          botName='Resume Assistant'
+          welcomeMessage="Hi! I'm here to help you learn more about Yonatan. Feel free to ask about his experience, skills, or download his resume!"
+          position='bottom-right'
+          size='medium'
+          theme='light'
+        />
       </main>
     </>
   );
