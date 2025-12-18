@@ -7,8 +7,14 @@ import Experience from '../components/Experience';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
 import RemoteChatWrapper from '../components/RemoteChatWrapper';
+import { useDevFeatures } from '../hooks/useDevFeatures';
 
 export default function Home() {
+  const [showChatWidget, isDevMode] = useDevFeatures([
+    'chat_widget',
+    'dev_mode',
+  ]);
+
   return (
     <>
       <Head>
@@ -34,13 +40,15 @@ export default function Home() {
         <Footer />
 
         {/* Chat Widget - Microfrontend */}
-        <RemoteChatWrapper
-          botName='Resume Assistant'
-          welcomeMessage="Hi! I'm here to help you learn more about Yonatan. Feel free to ask about his experience, skills, or download his resume!"
-          position='bottom-right'
-          size='medium'
-          theme='light'
-        />
+        {showChatWidget && (
+          <RemoteChatWrapper
+            botName='Resume Assistant'
+            welcomeMessage="Hi! I'm here to help you learn more about Yonatan. Feel free to ask about his experience, skills, or download his resume!"
+            position='bottom-right'
+            size='medium'
+            theme='light'
+          />
+        )}
       </main>
     </>
   );
