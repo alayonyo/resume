@@ -19,19 +19,66 @@ Webpack Module Federation.
 
 - Node.js 18+
 - npm or yarn
+- Python 3 (for development server with CORS)
 
 ### Setup
 
 ```bash
 # Install dependencies
 npm install
+```
 
-# Start development server
+### Running in Development Mode
+
+**⚠️ Important**: Due to webpack-dev-server injecting async chunks that prevent
+Module Federation from working correctly, we use a two-process development
+setup:
+
+#### Option 1: Manual (Two Terminal Windows)
+
+**Terminal 1** - Webpack Watch Mode:
+
+```bash
+cd packages/chat-widget
 npm run dev
 ```
 
-The widget will be available at `http://localhost:3001` for standalone
-development.
+**Terminal 2** - Python CORS Server:
+
+```bash
+cd packages/chat-widget
+npm run serve
+```
+
+The widget will be available at `http://localhost:3001` with:
+
+- ✅ CORS headers enabled
+- ✅ Auto-rebuild on file changes
+- ✅ Module Federation working correctly
+
+#### Option 2: Using the Dev Script
+
+```bash
+cd packages/chat-widget
+npm run dev:full
+```
+
+This starts both webpack watch and the Python server in the background.
+
+### Why Not webpack-dev-server?
+
+webpack-dev-server injects HMR client code that creates async chunk
+dependencies, preventing the `chatWidget` container from being assigned
+synchronously. This causes the Module Federation remote to fail loading in the
+host application.
+
+**Solution**: We use webpack watch mode + a simple Python HTTP server with CORS
+headers, which:
+
+- Builds files to disk (no in-memory serving)
+- Provides synchronous script execution
+- Includes proper CORS headers
+- Still rebuilds automatically on file changes
 
 ### Build
 

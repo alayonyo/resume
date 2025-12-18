@@ -311,9 +311,16 @@ const useChatWidget = () => {
           console.log('✅ React and ReactDOM exposed on window object');
         }
 
-        // Check if the widget is available
-        const response = await fetch(widgetUrl, {
-          cache: 'no-cache',
+        // Remove any existing chatWidget script to force reload
+        const existingScripts = document.querySelectorAll(
+          'script[src*="remoteEntry.js"]'
+        );
+        existingScripts.forEach((script) => script.remove());
+
+        // Check if the widget is available with cache busting
+        const cacheBuster = Date.now();
+        const response = await fetch(`${widgetUrl}?t=${cacheBuster}`, {
+          cache: 'no-store',
         });
 
         if (!response.ok) {
@@ -324,36 +331,97 @@ const useChatWidget = () => {
 
         // Load the remote entry script
         const script = document.createElement('script');
-        script.src = widgetUrl;
+        // Add cache busting query parameter to force reload
+        script.src = `${widgetUrl}?t=${cacheBuster}`;
         script.onload = () => {
           console.log('📦 RemoteEntry script loaded');
 
-          // Wait for script to execute
-          setTimeout(() => {
-            const chatWidget = (window as any).chatWidget;
+          // Webpack's Module Federation uses async chunk loading (__webpack_require__.O)
+          // The chatWidget assignment happens AFTER chunks load asynchronously
+          // We need to poll until the container is ready
+          let attempts = 0;
+          const maxAttempts = 100; // 10 seconds max (100ms * 100)
+          const checkInterval = 100;
 
-            if (chatWidget) {
-              console.log('🎯 ChatWidget found, loading ChatButton module...');
-              chatWidget
-                .get('./ChatButton')
-                .then((factory: any) => {
-                  const Module = factory();
-                  setChatButton(() => Module.default);
-                  setIsLoading(false);
-                  console.log('🎉 Chat widget loaded successfully!');
-                })
-                .catch((err: any) => {
-                  console.error('❌ Failed to load ChatButton module:', err);
-                  console.log('🔄 Falling back to inline widget');
-                  setChatButton(() => InlineChatWidget);
-                  setIsLoading(false);
-                });
+          const checkChatWidget = () => {
+            const chatWidget = (window as any).chatWidget;
+            attempts++;
+
+            // Log on first attempt to show we're checking
+            if (attempts === 1) {
+              console.log(
+                '⏳ Waiting for Module Federation container (async chunk loading)...'
+              );
+            }
+
+            // Check if Module Federation container is properly initialized
+            if (chatWidget && typeof chatWidget.get === 'function') {
+              console.log(
+                `🎯 Module Federation container ready (after ${attempts} attempts)`
+              );
+
+              // Initialize the Module Federation container
+              // We pass an empty shared scope because React/ReactDOM are externalized
+              // Note: init() may return undefined if already initialized
+              try {
+                const initResult = chatWidget.init({});
+
+                // If init returns a Promise, wait for it, otherwise proceed directly
+                const loadModule = () => {
+                  console.log(
+                    '✅ Container initialized, loading ChatButton...'
+                  );
+                  return chatWidget.get('./ChatButton').then((factory: any) => {
+                    console.log('📦 Factory received, instantiating...');
+                    const Module = factory();
+                    setChatButton(() => Module.default);
+                    setIsLoading(false);
+                    console.log('🎉 Chat widget loaded successfully!');
+                  });
+                };
+
+                if (initResult && typeof initResult.then === 'function') {
+                  // init() returned a Promise
+                  initResult.then(loadModule).catch((err: any) => {
+                    console.error('❌ Failed to load ChatButton module:', err);
+                    console.log('🔄 Falling back to inline widget');
+                    setChatButton(() => InlineChatWidget);
+                    setIsLoading(false);
+                  });
+                } else {
+                  // init() returned undefined (already initialized)
+                  loadModule().catch((err: any) => {
+                    console.error('❌ Failed to load ChatButton module:', err);
+                    console.log('🔄 Falling back to inline widget');
+                    setChatButton(() => InlineChatWidget);
+                    setIsLoading(false);
+                  });
+                }
+              } catch (err: any) {
+                console.error('❌ Error initializing container:', err);
+                console.log('🔄 Falling back to inline widget');
+                setChatButton(() => InlineChatWidget);
+                setIsLoading(false);
+              }
+            } else if (attempts < maxAttempts) {
+              // Keep polling
+              setTimeout(checkChatWidget, checkInterval);
             } else {
-              console.warn('❌ Chat widget not found, using inline fallback');
+              console.warn(
+                `❌ Module Federation container not ready after ${maxAttempts} attempts (${
+                  maxAttempts * checkInterval
+                }ms)`
+              );
+              console.log('Debug - window.chatWidget:', chatWidget);
+              console.log('Debug - typeof chatWidget:', typeof chatWidget);
+              console.log('Debug - chatWidget?.get:', chatWidget?.get);
               setChatButton(() => InlineChatWidget);
               setIsLoading(false);
             }
-          }, 100);
+          };
+
+          // Start checking immediately after script loads
+          checkChatWidget();
         };
 
         script.onerror = () => {

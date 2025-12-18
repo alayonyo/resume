@@ -98,6 +98,92 @@ To create resumes for other positions:
 
 ### Prerequisites
 
+- Node.js 18+
+- npm or yarn
+- Python 3 (for chat widget development server)
+
+### Installation
+
+```bash
+# Install main dependencies
+npm install
+
+# Install chat widget dependencies
+cd packages/chat-widget
+npm install
+cd ../..
+```
+
+### Development Mode
+
+See [DEV_SETUP.md](./DEV_SETUP.md) for detailed instructions.
+
+#### Quick Start with Automated Script
+
+```bash
+./start-dev.sh
+```
+
+This starts all three required processes:
+
+- Chat widget webpack watch (auto-rebuild)
+- Chat widget Python CORS server (port 3001)
+- Resume Next.js app (port 3500)
+
+Then open http://localhost:3500
+
+#### Manual Setup (Three Terminals)
+
+**Terminal 1** - Chat Widget (Webpack + CORS Server):
+
+```bash
+cd packages/chat-widget
+npm run dev        # Starts webpack watch mode
+```
+
+**Terminal 2** - Chat Widget Server:
+
+```bash
+cd packages/chat-widget
+npm run serve      # Starts Python server with CORS on port 3001
+```
+
+**Terminal 3** - Resume App (Next.js):
+
+```bash
+npm run dev        # Starts Next.js on port 3500
+```
+
+Then open http://localhost:3500
+
+#### Why This Setup?
+
+The chat widget uses a **two-process development setup** because:
+
+1. **webpack-dev-server issue**: Injects HMR client code that creates async
+   chunk dependencies, preventing Module Federation's `chatWidget` container
+   from being assigned synchronously
+2. **Solution**: Use webpack watch mode (builds to disk) + Python HTTP server
+   with CORS headers
+3. **Benefits**:
+   - ✅ Module Federation works correctly
+   - ✅ Auto-rebuild on file changes
+   - ✅ CORS headers for cross-origin requests
+   - ✅ Hot reload still works for Next.js host
+
+### Quick Start (Simplified)
+
+If you just want to run the resume app without the chat widget:
+
+```bash
+npm run dev
+```
+
+The inline fallback chat widget will be used instead of loading the
+microfrontend.
+
+### Prerequisites
+
 - Node.js 18+ installed
 - npm or yarn package manager
 

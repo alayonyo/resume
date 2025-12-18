@@ -2,6 +2,7 @@ const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPl
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+// const webpack = require('webpack');
 
 module.exports = (env, argv) => {
   const isProduction = argv.mode === 'production';
@@ -10,6 +11,7 @@ module.exports = (env, argv) => {
     mode: argv.mode || 'development',
     entry: './src/index.tsx',
     devtool: isProduction ? 'source-map' : 'eval-source-map',
+    target: 'web',
     resolve: {
       extensions: ['.tsx', '.ts', '.jsx', '.js', '.css'],
       alias: {
@@ -40,6 +42,7 @@ module.exports = (env, argv) => {
       new ModuleFederationPlugin({
         name: 'chatWidget',
         filename: 'remoteEntry.js',
+        library: { type: 'var', name: 'chatWidget' },
         exposes: {
           './ChatWidget': './src/components/ChatWidget',
           './ChatButton': './src/components/ChatButton',
@@ -85,18 +88,19 @@ module.exports = (env, argv) => {
     ],
     devServer: {
       port: 3001,
-      hot: true,
+      hot: false, // Disable HMR to avoid async chunk loading issues
+      liveReload: false,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods':
           'GET, POST, PUT, DELETE, PATCH, OPTIONS',
         'Access-Control-Allow-Headers':
-          'X-Requested-With, content-type, Authorization',
+          'X-Requested-With, content-type, Authorization, Cache-Control, Pragma',
       },
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: '[name].[contenthash].js',
+      filename: isProduction ? '[name].[contenthash].js' : '[name].js',
       clean: true,
       publicPath: isProduction ? '/chat-widget/' : 'http://localhost:3001/',
       uniqueName: 'chatWidget',

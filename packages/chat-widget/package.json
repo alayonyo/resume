@@ -6,7 +6,9 @@
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "webpack serve --mode development",
+    "dev": "webpack --mode development --watch",
+    "serve": "python3 dev-server.py",
+    "dev:full": "npm run dev & npm run serve",
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
     "type-check": "tsc --noEmit",

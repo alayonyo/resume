@@ -19,6 +19,11 @@ fi
 if [ -f "node_modules/.bin/webpack" ]; then
     echo "🔨 Building with webpack (production mode)..."
     npx webpack --mode production
+    
+    # Append code to expose chatWidget on window object
+    echo "🔧 Exposing container on window object..."
+    echo "if(typeof window!=='undefined')window.chatWidget=chatWidget;" >> dist/remoteEntry.js
+    
     echo "✅ Chat widget build complete!"
 else
     echo "⚠️  Webpack not found, skipping build..."
