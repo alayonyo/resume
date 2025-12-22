@@ -46,5 +46,5 @@ fi
 echo ""
 echo "🎉 Production build ready!"
 echo "📍 Deploy the 'deploy/' folder to your hosting provider"
-echo "📍 Test locally: npm run serve:static"
+echo "📍 Test locally: npm run serve:production"
 echo ""
