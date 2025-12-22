@@ -67,6 +67,22 @@ export default function Document() {
           property='og:site_name'
           content='Yonatan Ayalon - Frontend Engineer'
         />
+        <meta
+          property='og:image'
+          content='https://yonatan-ayalon.com/og-image.png'
+        />
+        <meta
+          property='og:image:width'
+          content='1200'
+        />
+        <meta
+          property='og:image:height'
+          content='630'
+        />
+        <meta
+          property='og:image:alt'
+          content='Yonatan Ayalon - Senior Frontend Engineer'
+        />
 
         {/* Twitter */}
         <meta
@@ -80,6 +96,14 @@ export default function Document() {
         <meta
           name='twitter:description'
           content='Senior Frontend Engineer at Vimeo specializing in React architecture, TypeScript systems, and A/B testing platforms. Building scalable solutions that impact millions of users worldwide.'
+        />
+        <meta
+          name='twitter:image'
+          content='https://yonatan-ayalon.com/og-image.png'
+        />
+        <meta
+          name='twitter:image:alt'
+          content='Yonatan Ayalon - Senior Frontend Engineer'
         />
 
         {/* Additional SEO */}
