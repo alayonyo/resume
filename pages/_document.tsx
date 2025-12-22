@@ -37,9 +37,13 @@ export default function Document() {
           name='robots'
           content='index, follow'
         />
+        <meta
+          httpEquiv='Content-Security-Policy'
+          content='upgrade-insecure-requests'
+        />
         <link
           rel='canonical'
-          href='https://yonatan-ayalon.com'
+          href='https://yonatan-ayalon.com/'
         />
 
         {/* Open Graph / Facebook */}
@@ -57,7 +61,7 @@ export default function Document() {
         />
         <meta
           property='og:url'
-          content='https://yonatan-ayalon.com'
+          content='https://yonatan-ayalon.com/'
         />
         <meta
           property='og:site_name'
