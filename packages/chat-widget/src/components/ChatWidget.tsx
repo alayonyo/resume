@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ChatWidget.css';
+import { getChatApiUrl, API_CONFIG } from '../config/api';
 
 export interface Message {
   id: string;
@@ -54,51 +55,60 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({
     };
 
     setMessages((prev) => [...prev, userMessage]);
+    const messageText = inputValue.trim();
     setInputValue('');
 
     // Call the optional callback
     if (onMessageSent) {
-      onMessageSent(userMessage.text);
+      onMessageSent(messageText);
     }
 
-    // Simulate bot typing
+    // Show typing indicator
     setIsTyping(true);
 
-    // Simulate bot response (you can replace this with actual API call)
-    setTimeout(() => {
+    try {
+      // Call actual chat API
+      const response = await fetch(getChatApiUrl(), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Origin: API_CONFIG.HEADERS.ORIGIN,
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          message: messageText,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: generateBotResponse(userMessage.text),
+        text: data.response || 'Sorry, I could not process your message.',
         sender: 'bot',
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, botResponse]);
+    } catch (error) {
+      console.error('Chat API error:', error);
+
+      // Fallback error message
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "Sorry, I'm having trouble connecting to the chat service. Please try again later.",
+        sender: 'bot',
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, errorResponse]);
+    } finally {
       setIsTyping(false);
-    }, 1000 + Math.random() * 2000);
-  };
-
-  const generateBotResponse = (userMessage: string): string => {
-    const responses = [
-      "Thanks for your message! I'm a demo bot for Yonatan's resume website.",
-      "That's interesting! Feel free to explore Yonatan's experience and skills.",
-      "I appreciate your interest! You can download Yonatan's resume using the buttons above.",
-      'Great question! Yonatan has extensive experience in full-stack development.',
-      'Thanks for reaching out! This chat widget demonstrates microfrontend architecture.',
-    ];
-
-    // Simple keyword-based responses
-    if (userMessage.toLowerCase().includes('resume')) {
-      return "You can download Yonatan's resume in PDF or DOCX format using the download buttons!";
     }
-    if (userMessage.toLowerCase().includes('experience')) {
-      return 'Yonatan has over 10 years of experience in software development, specializing in full-stack applications.';
-    }
-    if (userMessage.toLowerCase().includes('contact')) {
-      return 'You can reach Yonatan through the contact information provided on the resume!';
-    }
-
-    return responses[Math.floor(Math.random() * responses.length)];
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
