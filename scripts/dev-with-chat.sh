@@ -20,11 +20,11 @@ cd "$(dirname "$0")/.."
 echo "📦 Starting chat widget development server..."
 cd packages/chat-widget
 
-# Start chat widget dev server in background
+# Start chat widget dev server in background (webpack + Python server)
 if [ -f "package.json" ]; then
-    npm run dev > ../../chat-widget.log 2>&1 &
+    npm run dev:full > ../../chat-widget.log 2>&1 &
     CHAT_PID=$!
-    echo "🟢 Chat widget dev server started (PID: $CHAT_PID) on http://localhost:3001"
+    echo "🟢 Chat widget dev server started (PID: $CHAT_PID) - webpack watch + Python server on http://localhost:3001"
 else
     echo "⚠️  Chat widget package.json not found, skipping..."
 fi

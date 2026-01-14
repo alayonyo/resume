@@ -1,7 +1,12 @@
 /**
  * Chat Widget API Configuration
  * Centralized configuration for API endpoints
+ *
+ * Import runtime config directly from runtime-config.js
+ * Edit runtime-config.js to change API URL without touching TypeScript
  */
+
+import { CHAT_CONFIG } from './runtime-config.js';
 
 export const API_CONFIG = {
   // MCP Chat API URLs
@@ -19,8 +24,15 @@ export const API_CONFIG = {
 
 /**
  * Get the appropriate chat API URL based on environment
+ * Uses imported CHAT_CONFIG for easy updates (edit runtime-config.js)
  */
 export const getChatApiUrl = (): string => {
+  // Use runtime config if available
+  if (CHAT_CONFIG?.apiUrl) {
+    return CHAT_CONFIG.apiUrl;
+  }
+
+  // Fallback to built-in config
   const isProduction =
     process.env.NODE_ENV === 'production' ||
     (typeof window !== 'undefined' &&

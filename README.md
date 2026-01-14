@@ -124,13 +124,15 @@ cd ../..
 
 See [DEV_SETUP.md](./DEV_SETUP.md) for detailed instructions.
 
-#### Quick Start with Automated Script
+#### Alternative: Using the Shell Script Directly
 
 ```bash
 ./start-dev.sh
+# or
+npm run dev:with-chat
 ```
 
-This starts all three required processes:
+Both commands start all three required processes:
 
 - Chat widget webpack watch (auto-rebuild)
 - Chat widget Python CORS server (port 3001)
@@ -213,16 +215,35 @@ issues, the build scripts automatically use a mirror registry
 
 ### Development Mode
 
-Start the Next.js development server:
+#### Option 1: Full Development Mode (Recommended) 🚀
+
+Run both the resume app AND the chat widget microfrontend:
+
+```bash
+npm run dev:with-chat
+```
+
+This automated script starts:
+
+- Chat widget webpack watch mode (auto-rebuilds on changes)
+- Chat widget Python server on port 3001 (with CORS)
+- Next.js resume app on port 3500
+
+Visit [http://localhost:3500](http://localhost:3500) to see your resume website
+with the fully functional chat widget.
+
+Press `Ctrl+C` to stop all servers.
+
+#### Option 2: Resume App Only (Quick Start)
+
+If you just want to run the resume app without the chat widget:
 
 ```bash
 npm run dev
 ```
 
-Visit [http://localhost:3500](http://localhost:3500) to see your resume website.
-
-The chat widget will automatically load and use the host's React instance (no
-duplicate React bundles).
+Visit [http://localhost:3500](http://localhost:3500). The inline fallback chat
+widget will be used instead of loading the microfrontend.
 
 ### Production Build
 
