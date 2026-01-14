@@ -24,6 +24,10 @@ if [ -f "node_modules/.bin/webpack" ]; then
     echo "🔧 Exposing container on window object..."
     echo "if(typeof window!=='undefined')window.chatWidget=chatWidget;" >> dist/remoteEntry.js
     
+    # Copy runtime config file (unprocessed, preserving comments and formatting)
+    echo "📝 Copying runtime config file..."
+    cp public/config.js dist/config.js
+    
     echo "✅ Chat widget build complete!"
 else
     echo "⚠️  Webpack not found, skipping build..."

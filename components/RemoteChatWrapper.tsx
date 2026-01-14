@@ -292,9 +292,10 @@ const useChatWidget = () => {
       const isProduction =
         process.env.NODE_ENV === 'production' ||
         !window.location.hostname.includes('localhost');
-      const widgetUrl = isProduction
-        ? '/chat-widget/remoteEntry.js' // Production: same domain
-        : 'http://localhost:3001/remoteEntry.js'; // Development: separate server
+      const widgetBaseUrl = isProduction
+        ? '/chat-widget' // Production: same domain
+        : 'http://localhost:3001'; // Development: separate server
+      const widgetUrl = `${widgetBaseUrl}/remoteEntry.js`;
 
       console.log(
         `🔄 Loading chat widget from: ${widgetUrl} (${
@@ -303,7 +304,30 @@ const useChatWidget = () => {
       );
 
       try {
-        // Make React and ReactDOM available globally BEFORE loading the widget
+        // Step 1: Load external runtime config FIRST (if in production)
+        if (isProduction) {
+          const configUrl = `${widgetBaseUrl}/config.js`;
+          console.log(`📄 Loading external config from: ${configUrl}`);
+
+          const configScript = document.createElement('script');
+          configScript.src = `${configUrl}?t=${Date.now()}`;
+
+          await new Promise((resolve, reject) => {
+            configScript.onload = () => {
+              console.log('✅ External config loaded');
+              resolve(true);
+            };
+            configScript.onerror = () => {
+              console.warn(
+                '⚠️ External config not found, using bundled defaults'
+              );
+              resolve(false); // Don't reject, just continue with defaults
+            };
+            document.head.appendChild(configScript);
+          });
+        }
+
+        // Step 2: Make React and ReactDOM available globally BEFORE loading the widget
         // This ensures the chat widget uses the host's React instance
         if (typeof window !== 'undefined') {
           (window as any).React = React;
@@ -317,7 +341,7 @@ const useChatWidget = () => {
         );
         existingScripts.forEach((script) => script.remove());
 
-        // Check if the widget is available with cache busting
+        // Step 3: Check if the widget is available with cache busting
         const cacheBuster = Date.now();
         const response = await fetch(`${widgetUrl}?t=${cacheBuster}`, {
           cache: 'no-store',
