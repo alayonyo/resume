@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './ChatWidget.css';
-import { getChatApiUrl, API_CONFIG } from '../config/api';
+import { getChatApiUrl, getOriginHeader } from '../config/api';
 
 export interface Message {
   id: string;
@@ -72,7 +72,7 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Origin: API_CONFIG.HEADERS.ORIGIN,
+          Origin: getOriginHeader(),
         },
         credentials: 'include',
         body: JSON.stringify({
